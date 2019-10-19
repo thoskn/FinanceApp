@@ -1,0 +1,14 @@
+﻿@model FinanceApp.Models.FormModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    <form asp-action="StockSymbol" asp-controller="Home">
+        <label asp-for="StockSymbol"></label>
+        <input asp-for="StockSymbol" placeholder="Stock Symbol" />
+        <input type="submit" />
+    </form>
+</div>
