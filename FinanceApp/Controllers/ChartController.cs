@@ -26,9 +26,10 @@ namespace FinanceApp.Controllers
                 DateTime start = new DateTime();
                 DateTime end = new DateTime();                
                 List<DataPoint> dataPoints = ChartFactory.GetChart(stockSymbol, start, end, ChartType.Line, PriceType.Close);
+
                 ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
-                double minimum = dataPoints.Min(dp => dp.Y) ?? 0;
-                ViewBag.Minimum = minimum - minimum / 10;
+                ViewBag.Labels = JsonConvert.SerializeObject(dataPoints.Select(dp => dp.X));
+                ViewBag.Data = JsonConvert.SerializeObject(dataPoints.Select(dp => dp.Y));
             }
             
             ViewBag.StockSymbol = stockSymbol.ToUpper();
