@@ -41,7 +41,7 @@ namespace FinanceApp.Models.IEX
 
                 List<PricePoint> pricePoints = pricesDictionary.ToList().Select(
                         pair => new PricePoint(PriceDictToPriceStruct(pair.Value), StringToDateTime(pair.Key))
-                    ).ToList();
+                    ).Where(pp => pp.dateTime < end & pp.dateTime > start).ToList();
 
                 return pricePoints;
 

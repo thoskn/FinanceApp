@@ -19,7 +19,7 @@ new Chart(document.getElementById("chartContainer"),
 			            "labels": @Html.Raw(ViewBag.Labels),
 			            "datasets": [
                             {
-                                "label": "My First Dataset",
+                                "label": "@ViewBag.Title",
                                 "data": @Html.Raw(ViewBag.Data),
 			                    "fill": false,
 			                    "borderColor": "rgb(75, 192, 192)",
@@ -31,7 +31,15 @@ new Chart(document.getElementById("chartContainer"),
                 "legend": {
                     "display": false
                 },
-                "bezierCurve" : false
+                "bezierCurve" : false,
+                "scales": {
+                "yAxes": [{
+                  "scaleLabel": {
+                    "display": true,
+                    "labelString": "@ViewBag.YAxisLabel"
+                  }
+                }]
+  }
             }
         });
 

@@ -23,13 +23,14 @@ namespace FinanceApp.Controllers
             }
             else
             {
-                DateTime start = new DateTime();
-                DateTime end = new DateTime();                
-                List<DataPoint> dataPoints = ChartFactory.GetChart(stockSymbol, start, end, ChartType.Line, PriceType.Close);
+                DateTime start = new DateTime(2019, 1, 8);
+                DateTime end = new DateTime(2019, 10, 10);
+                Chart chart = ChartFactory.GetChart(stockSymbol, start, end, ChartType.Line, PriceType.Close);
 
-                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
-                ViewBag.Labels = JsonConvert.SerializeObject(dataPoints.Select(dp => dp.X));
-                ViewBag.Data = JsonConvert.SerializeObject(dataPoints.Select(dp => dp.Y));
+                ViewBag.Labels = JsonConvert.SerializeObject(chart.XLabels);
+                ViewBag.Data = JsonConvert.SerializeObject(chart.YValues);
+                ViewBag.Title = chart.Title;
+                ViewBag.YAxisLabel = "$";
             }
             
             ViewBag.StockSymbol = stockSymbol.ToUpper();

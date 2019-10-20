@@ -13,7 +13,7 @@ namespace FinanceApp.Models
             this.priceRepository = priceRepository;
         }
 
-        public List<DataPoint> GetChart(string stockSymbol, DateTime start, DateTime end, ChartType chartType, PriceType priceType)
+        public Chart GetChart(string stockSymbol, DateTime start, DateTime end, ChartType chartType, PriceType priceType)
         {
             List<PricePoint> pricePoints = priceRepository.GetPricesInDateRange(stockSymbol, start, end);
 
@@ -23,9 +23,9 @@ namespace FinanceApp.Models
                     switch (priceType)
                     {
                         case PriceType.Close:
-                            return pricePoints.OrderBy(pricePoint => ConvertDateToEpoch(pricePoint.dateTime))
-                                              .Select((pricePoint, index) => new DataPoint(index, pricePoint.price.close ?? 0))
-                                              .ToList();
+                            pricePoints = pricePoints.OrderBy(pricePoint => ConvertDateToEpoch(pricePoint.dateTime)).ToList();
+                            return new Chart(pricePoints.Select(pp => pp.dateTime.ToString("dd/MM/yyyy")).ToArray(),
+                                             pricePoints.Select(pp => pp.price.close ?? 0).ToArray());
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
